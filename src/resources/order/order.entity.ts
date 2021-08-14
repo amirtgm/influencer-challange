@@ -6,7 +6,7 @@ import {
   ForeignKey,
   BelongsTo
 } from 'sequelize-typescript';
-import User from '@resources/users/user.entity';
+import User from '@root/resources/user/user.entity';
 
 @Table
 export default class Order extends Model {
