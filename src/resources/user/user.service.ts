@@ -1,7 +1,12 @@
 // import { Sequelize,  } from "sequelize-typescript";
 import { sequelize } from '@root/database';
 import { Repository } from 'sequelize-typescript';
-import { FindOptions } from 'sequelize/types';
+import {
+  CreateOptions,
+  FindOptions,
+  UpdateOptions,
+  DestroyOptions
+} from 'sequelize/types';
 import User from './user.entity';
 
 const repo = sequelize.getRepository(User);
@@ -12,6 +17,25 @@ export default class UserService {
   }
 
   public async findAll(option?: FindOptions<User>): Promise<User[]> {
-    return await this.userRepository.findAll(option || {});
+    return this.userRepository.findAll(option || {});
+  }
+  public async createUser(data: CreateOptions<User>): Promise<User> {
+    return this.userRepository.create(data, {
+      returning: true
+    });
+  }
+  public async updateUser(id: number, data: User): Promise<User> {
+    const [rows, [result]] = await this.userRepository.update(data, {
+      where: { id },
+      returning: true
+    });
+    return result;
+  }
+  public async deleteUser(id: number): Promise<number> {
+    return this.userRepository.destroy({
+      where: {
+        id
+      }
+    });
   }
 }

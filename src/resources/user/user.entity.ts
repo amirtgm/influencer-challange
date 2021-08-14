@@ -10,7 +10,7 @@ export default class User extends Model {
   name: string;
 
   @Column
-  birthday: Date;
+  country_code: number;
 
   @HasMany(() => Order)
   orders: Order[];
