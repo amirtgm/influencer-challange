@@ -4,9 +4,11 @@ import {
   Model,
   CreatedAt,
   ForeignKey,
-  BelongsTo
+  BelongsTo,
+  HasMany
 } from 'sequelize-typescript';
 import User from '@root/resources/user/user.entity';
+import OrderItems from '@root/resources/order/orderItem/orderItem.entity';
 
 @Table
 export default class Order extends Model {
@@ -20,9 +22,9 @@ export default class Order extends Model {
   @BelongsTo(() => User)
   user: User;
 
+  @HasMany(() => OrderItems)
+  orders_items: OrderItems[];
+
   @CreatedAt
   created_at: Date;
-
-  @Column
-  countery_code: number;
 }

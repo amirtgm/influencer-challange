@@ -2,6 +2,7 @@ import express from 'express';
 import compression from 'compression';
 import { sequelize } from './database';
 import userRoutes from '@resources/user/user.route';
+import orderRoutes from '@resources/order/order.route';
 import morgan from 'morgan';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config();
@@ -21,6 +22,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/user', userRoutes);
+app.use('/order', orderRoutes);
 app.get('/', (req, res) => {
   res.send('hi');
 });
